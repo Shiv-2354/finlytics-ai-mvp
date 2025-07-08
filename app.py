@@ -1,4 +1,5 @@
 import streamlit as st
+st.write("App started") 
 import pdfplumber
 
 st.title("📊 Finlytics AI – PDF Financial Extractor (Safe Demo)")
