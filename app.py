@@ -1,31 +1,24 @@
-
 import streamlit as st
 import pdfplumber
 
-st.set_page_config(page_title="Finlytics AI", layout="wide")
+st.title("📊 Finlytics AI – PDF Financial Extractor (Safe Demo)")
 
-st.title("📊 Finlytics AI – PDF Financial Extractor")
+uploaded_file = st.file_uploader("Upload a PDF report (max 5 pages)", type="pdf")
 
-uploaded_file = st.file_uploader("Upload a financial PDF", type="pdf")
+if uploaded_file is not None:
+    try:
+        with pdfplumber.open(uploaded_file) as pdf:
+            text = ''
+            for i, page in enumerate(pdf.pages[:5]):
+                text += page.extract_text() + "\\n"
 
-if uploaded_file:
-    with pdfplumber.open(uploaded_file) as pdf:
-        text = ''
-        for page in pdf.pages:
-            text += page.extract_text() + "\n"
+        st.subheader("Extracted Text:")
+        st.text_area("Text Preview", text[:3000], height=300)
 
-    st.subheader("Extracted Text:")
-    st.text_area("Raw Text", text[:3000], height=300)
+        query = st.text_input("Ask a question (mock example):")
 
-    query = st.text_input("Ask a financial question (demo):")
+        if query:
+            st.write("This is a demo. You asked:", query)
 
-    if query:
-        st.subheader("Answer (Mock):")
-        if "eps" in query.lower():
-            st.write("EPS in 2022 was ₹3.12 vs ₹2.78 in 2021.")
-        elif "net profit" in query.lower():
-            st.write("Net profit for 2022 was ₹15.2 Cr.")
-        elif "revenue" in query.lower():
-            st.write("Revenue rose to ₹134 Cr in 2022 from ₹120 Cr in 2021.")
-        else:
-            st.write("Sorry, this is a demo and cannot answer that.")
+    except Exception as e:
+        st.error("Failed to process PDF. Make sure it has selectable text.")
