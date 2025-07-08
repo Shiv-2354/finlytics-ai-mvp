@@ -1,17 +1,14 @@
-import streamlit as st
-st.write("App started") 
-import pdfplumber
-
-st.title("📊 Finlytics AI – PDF Financial Extractor (Safe Demo)")
-
-uploaded_file = st.file_uploader("Upload a PDF report (max 5 pages)", type="pdf")
+import io
 
 if uploaded_file is not None:
     try:
-        with pdfplumber.open(uploaded_file) as pdf:
+        with pdfplumber.open(io.BytesIO(uploaded_file.read())) as pdf:
             text = ''
             for i, page in enumerate(pdf.pages[:5]):
-                text += page.extract_text() + "\\n"
+                text += page.extract_text() + "\n"
+
+        # Reset the file pointer after reading for further uses
+        uploaded_file.seek(0)
 
         st.subheader("Extracted Text:")
         st.text_area("Text Preview", text[:3000], height=300)
@@ -22,4 +19,4 @@ if uploaded_file is not None:
             st.write("This is a demo. You asked:", query)
 
     except Exception as e:
-        st.error("Failed to process PDF. Make sure it has selectable text.")
+        st.error(f"Failed to process PDF. Make sure it has selectable text. Error: {e}")
