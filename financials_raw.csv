@@ -1,0 +1,6 @@
+id,rank,workers,company,url,state_l,state_s,city,metro,growth,revenue,industry,yrs_on_list
+25522,35,55,Retail Capital,retail-capital,Michigan,MI,Troy,Detroit,6861.3577,7013359,Financial Services,1
+21105,62,19,Victor Securities,victor-securities,New Jersey,NJ,Englewood,New York City,4897.024,6494832,Financial Services,3
+22962,19,27,BlueSquare Resolutions,bluesquare-resolutions,Arizona,AZ,Scottsdale,Phoenix,11488.6004,46400872,Financial Services,2
+25290,21,12,Simpler Trading,simpler-trading,Texas,TX,Austin,Austin,10522.6415,11260000,Financial Services,1
+25925,23,17,Base Commerce,base-commerce,Arizona,AZ,Tempe,Phoenix,10186.259,12479598,Financial Services,1
